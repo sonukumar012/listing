@@ -1,0 +1,45 @@
+{
+  "name": "listing",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "calendar": "^0.1.1",
+    "datatables.net": "^2.0.2",
+    "datatables.net-bs4": "^2.0.2",
+    "datatables.net-dt": "^2.0.2",
+    "date-fns": "^3.4.0",
+    "daterange": "^0.3.0",
+    "daterangepicker": "^3.1.0",
+    "file-saver": "^2.0.5",
+    "jquery": "^3.7.1",
+    "papaparse": "^5.4.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-data-table-component": "^7.6.2",
+    "react-date-range": "^2.0.0-alpha.4",
+    "react-datepicker": "^6.3.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.2",
+    "rsuite": "^5.56.0",
+    "sourcemap": "^0.1.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.4"
+  }
+}
