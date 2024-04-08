@@ -4,6 +4,7 @@ import "./inventory.css";
 import "./alert.css";
 import companyLogo from "./assets/images/company_logo.jpg";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const FileUploadComponent = () => {
   const [file, setFile] = useState(null);
@@ -20,14 +21,17 @@ const FileUploadComponent = () => {
 
   const handleUpload = async () => {
     if (!file || !option) {
-      alert("Please select a file and an option.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select a file and an option.",
+      });
       return;
     }
 
     document.querySelector(".vl_loader-wrapper").classList.remove("d-none");
 
     const formData = new FormData();
-    console.log(formData);
     formData.append("fileCSV", file);
     formData.append("option", option);
 
@@ -44,21 +48,33 @@ const FileUploadComponent = () => {
 
       console.log("Response:", response.data);
       if (response.data.code == 200) {
-      document.querySelector(".vl_loader-wrapper").classList.add("d-none");
-        alert(response.data.success);
+        document.querySelector(".vl_loader-wrapper").classList.add("d-none");
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: response.data.success,
+        });
       } else {
-      document.querySelector(".vl_loader-wrapper").classList.add("d-none");
-        alert(response.data.error);
+        document.querySelector(".vl_loader-wrapper").classList.add("d-none");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: response.data.error,
+        });
       }
 
-      // alert("File uploaded successfully!");
       navigate("/inventory");
     } catch (error) {
       document.querySelector(".vl_loader-wrapper").classList.add("d-none");
       console.error("Error uploading file:", error);
-      alert("An error occurred while uploading the file.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "An error occurred while uploading the file.",
+      });
     }
   };
+
 
   return (
     <div className="list_page full_page">

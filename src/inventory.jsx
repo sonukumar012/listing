@@ -43,7 +43,7 @@ const Inventory = () => {
           data: response.data,
           searching: false,
           ordering: true,
-          scrollX: true,
+          // scrollX: true,
           // scrollX: true,
           columns: [
             {
@@ -204,7 +204,7 @@ const Inventory = () => {
                         className="badge bg-success"
                         style={{ fontSize: "14px", fontWeight: "600" }}
                       >
-                        {data}
+                        {formattedPrice}
                       </span>
                     );
                   }
@@ -219,7 +219,7 @@ const Inventory = () => {
               render: function (data, type) {
                 // Check if data is available and render accordingly
                 if (type === "display" && data) {
-                  data = data.replace("/sqft", "");
+                  data = data.replace("₹", "").replace("/sqft", "");
                   return ReactDOMServer.renderToString(
                     <span
                       className="badge bg-secondary"
@@ -350,7 +350,7 @@ const Inventory = () => {
                   );
                   return ReactDOMServer.renderToString(title);
                 }
-                return "No Status";
+                return data;
               },
               className: "text-center align-middle",
             },
@@ -456,6 +456,8 @@ const Inventory = () => {
                     </p>
                   );
                   return ReactDOMServer.renderToString(title);
+                } else if (type === "display" && !data) {
+                  return "Dealer";
                 }
                 return data;
               },
@@ -465,8 +467,24 @@ const Inventory = () => {
               render: function (data, type) {
                 // Check if data is available and render accordingly
                 if (type === "display" && data) {
+                  const title = (
+                    <p
+                      className="text-truncate d-inline-block"
+                      rel="noopener noreferrer"
+                      style={{
+                        textDecoration: "none",
+                        color: "white",
+                        maxWidth: "70px",
+                      }}
+                      data-bs-toggle="tooltip"
+                      title={data}
+                      data-bs-original-title={data}
+                    >
+                      {data}
+                    </p>
+                  );
                   return ReactDOMServer.renderToString(
-                    <span className="badge bg-primary">{data}</span>
+                    <span className="badge bg-primary">{title}</span>
                   );
                 }
                 return data;
@@ -720,21 +738,63 @@ const Inventory = () => {
                     Clear all Filter
                   </button>
                 </div>
+                {/* File Operation */}
                 <div className="d-flex gap-2 align-items-center">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>
+                        <i className="fa-solid fa-cloud-download"></i>
+                      </span>{" "}
+                      Get Template
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="Buy(Resale)_template.xlsx">
+                          Buy
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="Rent_template.xlsx">
+                          Rent
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  {/* <a
+                    href="Template_99acres.xltx"
+                    download="Template-Inventory.csv"
+                    className="btn btn-primary"
+                    id="downlaod-btn"
+                  >
+                    <span>
+                      <i className="fa-solid fa-cloud-download"></i>
+                    </span>{" "}
+                    Get Template
+                  </a> */}
                   <a href="/uploadExcel" className="btn btn-outline-primary ">
                     <span>
-                      <i className="fa-solid fa-cloud-arrow-up"></i>
+                      <i className="fa-solid fa-file-arrow-up"></i>
                     </span>{" "}
                     Upload File
                   </a>
-                  {/* <a href="" download="99acres-inventory.csv" className="btn btn-primary" id="downlaod-btn">
-                <span><i class="fa-solid fa-cloud-download"></i></span> Downlaod File</a> */}
                   {/* className="d-flex justify-content-end mt-3" */}
-                  <button className="btn btn-primary" onClick={handleDownload}>
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={handleDownload}
+                  >
                     <span>
-                      <i className="fa fa-cloud-download"></i>
+                      <i className="fa fa-file-export"></i>
                     </span>{" "}
-                    Download File
+                    Export
                   </button>
                 </div>
               </div>
