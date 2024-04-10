@@ -340,6 +340,17 @@ div#propertyTable_paginate > span {
 
 div#propertyTable_info {
   font-size: 14px;
+      margin: 10px;
+      text-align: center;
+}
+.bottom {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.top{
+  margin-bottom: 10px;
+  display: flex;
 }
 
 .dataTables_wrapper {

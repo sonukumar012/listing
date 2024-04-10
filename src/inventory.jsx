@@ -12,6 +12,7 @@ import Papa from "papaparse";
 
 const Inventory = () => {
   const [inventory, setInventory] = useState([]);
+  const [budget, setBudget] = useState([]);
   const [filterType, setFilterType] = useState("");
   const [searchText, setSearchText] = useState(""); // State for search text
   const propertyTableRef = useRef(null);
@@ -34,17 +35,33 @@ const Inventory = () => {
         );
         // Update state with fetched inventory
         setInventory(response.data);
+        // Initialize with default page length
+        let currentPageLength = 10;
         // Destroy the DataTable if it's already initialized
         if ($.fn.DataTable.isDataTable(propertyTableRef.current)) {
+          currentPageLength = $(propertyTableRef.current)
+            .DataTable()
+            .page.len();
           $(propertyTableRef.current).DataTable().destroy();
         }
         $(propertyTableRef.current).DataTable({
-          pageLength: 10,
           data: response.data,
           searching: false,
           ordering: true,
-          // scrollX: true,
-          // scrollX: true,
+          // processing: true,
+          pageLength: currentPageLength,
+          language: {
+            loadingRecords: "Please wait - loading...",
+            lengthMenu: "_MENU_ Entries per page",
+          },
+          lengthMenu: [
+            [10, 25, 50, 100, 200, 500, -1],
+            [10, 25, 50, 100, 200, 500, "All"],
+          ],
+          dom: '<"top"l>t<"bottom"<"small"l><"small"i><"small"p>',
+          // scrollY: 400,
+          // scroll: true,
+          data: response.data,
           columns: [
             {
               data: "title",
@@ -242,7 +259,6 @@ const Inventory = () => {
                   const title = (
                     <p
                       className="text-truncate d-inline-block"
-                      target="_blank"
                       rel="noopener noreferrer"
                       style={{
                         textDecoration: "none",
@@ -524,8 +540,27 @@ const Inventory = () => {
     }
     // const selectedValue = e.target.value;
     // // Now you have the value of the selected radio button
-    // console.log(selectedValue);
+    // console.log(value);
     // alert('Button clicked');
+  };
+
+  const handleBudget = (e) => {
+    const value = e.target.value;
+    let updatedBudget = "";
+
+    // Handle different budget values
+    if (value === "75 K") {
+      updatedBudget = budget === "75 K" ? "" : "75 K";
+    } else if (value === "10 Lac") {
+      updatedBudget = budget === "10 Lac" ? "" : "10 Lac";
+    } else if (value === "10 Cr") {
+      updatedBudget = budget === "10 Cr" ? "" : "10 Cr";
+    }
+
+    // Update the budget state
+    setBudget(updatedBudget);
+
+    console.log(value);
   };
 
   const handleSearch = (e) => {
@@ -536,6 +571,14 @@ const Inventory = () => {
     // Clear all filters
     setFilterType("");
     setSearchText("");
+    const searchedText = document.getElementById("txtSearch");
+    searchedText.value = "";
+    setBudget([]);
+
+    // Reset page length to 10
+    if ($.fn.DataTable.isDataTable(propertyTableRef.current)) {
+      $(propertyTableRef.current).DataTable().page.len(10).draw();
+    }
   };
 
   const handleEnterKeyPress = (e) => {
@@ -740,9 +783,9 @@ const Inventory = () => {
                 </div>
                 {/* File Operation */}
                 <div className="d-flex gap-2 align-items-center">
-                  <div class="dropdown">
+                  <div className="dropdown">
                     <button
-                      class="btn btn-primary dropdown-toggle"
+                      className="btn btn-primary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"
@@ -754,16 +797,19 @@ const Inventory = () => {
                       Get Template
                     </button>
                     <ul
-                      class="dropdown-menu"
+                      className="dropdown-menu"
                       aria-labelledby="dropdownMenuButton1"
                     >
                       <li>
-                        <a class="dropdown-item" href="Buy(Resale)_template.xlsx">
+                        <a
+                          className="dropdown-item"
+                          href="Buy(Resale)_template.xlsx"
+                        >
                           Buy
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="Rent_template.xlsx">
+                        <a className="dropdown-item" href="Rent_template.xlsx">
                           Rent
                         </a>
                       </li>
@@ -803,7 +849,7 @@ const Inventory = () => {
               <div className="top_filter  py-3 px-3 d-flex flex-column gap-2">
                 <div className="d-flex justify-content-md-start justify-content-start flex-wrap gap-2">
                   <div className="ms-md-3 d-flex gap-2 align-items-center flex-wrap">
-                    <label className="small">Room</label>
+                    <label className="small">Property Type</label>
                     <div className="d-flex gap-2">
                       <div className="d-inline">
                         <input
@@ -833,6 +879,56 @@ const Inventory = () => {
                         />
                         <label className="rd_chip_tag" htmlFor="rdbhk_2">
                           Rent
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="ms-md-3 d-flex gap-2 align-items-center flex-wrap">
+                    <label className="small">Budget</label>
+                    <div className="d-flex gap-2">
+                      <div className="d-inline">
+                        <input
+                          className="form-check-input rd_chip_input"
+                          type="checkbox"
+                          name="chk_budget"
+                          id="chk_75K"
+                          value="75 K"
+                          checked={budget === "75 K"}
+                          hidden
+                          onChange={handleBudget}
+                        />
+                        <label className="rd_chip_tag" htmlFor="chk_75K">
+                          75 K
+                        </label>
+                      </div>
+                      <div className="d-inline">
+                        <input
+                          className="form-check-input rd_chip_input"
+                          type="checkbox"
+                          name="chk_budget"
+                          id="chk_10Lac"
+                          value="10 Lac"
+                          checked={budget === "10 Lac"}
+                          hidden
+                          onChange={handleBudget}
+                        />
+                        <label className="rd_chip_tag" htmlFor="chk_10Lac">
+                          10 Lac
+                        </label>
+                      </div>
+                      <div className="d-inline">
+                        <input
+                          className="form-check-input rd_chip_input"
+                          type="checkbox"
+                          name="chk_budget"
+                          id="chk_10Cr"
+                          value="10 Cr"
+                          checked={budget === "10 Cr"}
+                          hidden
+                          onChange={handleBudget}
+                        />
+                        <label className="rd_chip_tag" htmlFor="chk_10Cr">
+                          10 Cr
                         </label>
                       </div>
                     </div>

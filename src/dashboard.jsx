@@ -67,20 +67,20 @@ const DashboardPage = () => {
                 </div>
                 <div className="card-body text-center">
                   <div className="d-flex  gap-2">
-                    <div class="d-flex flex-5 align-items-center position-relative border border-1 rounded p-2 border-success">
-                      <div class="flex-shrink-0">
-                        <span className="view_listing"><i class="fa-solid fa-eye"></i></span>
+                    <div className="d-flex flex-5 align-items-center position-relative border border-1 rounded p-2 border-success">
+                      <div className="flex-shrink-0">
+                        <span className="view_listing"><i className="fa-solid fa-eye"></i></span>
                       </div>
-                      <div class="flex-grow-1 ms-3 text-start">
+                      <div className="flex-grow-1 ms-3 text-start">
                         <a href="/listing" className="fs-6 fw-600 stretched-link text-decoration-none text-dark">View Listing</a>
                         <p className="small text-muted">View and Manage 99Acres Listing</p>
                       </div>
                     </div>
-                    <div class="d-flex flex-5 align-items-center position-relative border border-1 rounded p-2 border-primary">
-                      <div class="flex-shrink-0">
-                        <span className="Upload_listing"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                    <div className="d-flex flex-5 align-items-center position-relative border border-1 rounded p-2 border-primary">
+                      <div className="flex-shrink-0">
+                        <span className="Upload_listing"><i className="fa-solid fa-cloud-arrow-up"></i></span>
                       </div>
-                      <div class="flex-grow-1 ms-3 text-start">
+                      <div className="flex-grow-1 ms-3 text-start">
                         <a href="/listUpload" className="fs-6 fw-600 stretched-link text-decoration-none text-dark">Upload file</a>
                         <p className="small text-muted">Upload file for 99Acres Listing</p>
                       </div>
@@ -99,21 +99,21 @@ const DashboardPage = () => {
                 </div>
                 <div className="card-body text-center">
                   <div className="d-flex gap-2">
-                    <div class="d-flex align-items-center flex-5 position-relative border border-1 rounded p-2 border-success">
-                      <div class="flex-shrink-0">
-                        <span className="view_listing"><i class="fa-solid fa-eye"></i></span>
+                    <div className="d-flex align-items-center flex-5 position-relative border border-1 rounded p-2 border-success">
+                      <div className="flex-shrink-0">
+                        <span className="view_listing"><i className="fa-solid fa-eye"></i></span>
                       </div>
-                      <div class="flex-grow-1 ms-3 text-start">
+                      <div className="flex-grow-1 ms-3 text-start">
                         <a href="/inventory" className="fs-6 fw-600 stretched-link text-decoration-none text-dark">View Inventory</a>
                         <p className="small text-muted">View and Manage 99Acres Inventory</p>
 
                       </div>
                     </div>
-                    <div class="d-flex align-items-center position-relative flex-5 border border-1 rounded p-2 border-primary">
-                      <div class="flex-shrink-0">
-                        <span className="Upload_listing"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                    <div className="d-flex align-items-center position-relative flex-5 border border-1 rounded p-2 border-primary">
+                      <div className="flex-shrink-0">
+                        <span className="Upload_listing"><i className="fa-solid fa-cloud-arrow-up"></i></span>
                       </div>
-                      <div class="flex-grow-1 ms-3 text-start">
+                      <div className="flex-grow-1 ms-3 text-start">
                         <a href="/uploadExcel" className="fs-6 fw-600 stretched-link text-decoration-none text-dark">Upload file</a>
                         <p className="small text-muted">Upload file for 99Acres Inventory</p>
 
